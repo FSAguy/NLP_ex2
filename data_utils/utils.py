@@ -12,7 +12,6 @@ def docs_to_indices(docs, word_to_num):
     ret = []
     for seq in docs:
         words = [_canonicalize_word(wt[0], word_to_num) for wt in seq]
-        print(words)
         ret.append(_seq_to_indices(words, word_to_num))
 
     # return as numpy array for fancier slicing

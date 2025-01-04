@@ -96,9 +96,11 @@ def lm_wrapper(in_word_index, out_word_index, num_to_word_embedding, dimensions,
 
 
 def load_data_and_format(eval_data_path, word_to_num, should_preprocess):
-    """loads unformatted text properly"""
+    """loads an unformatted corpus to a proper format for the model"""
     docs = []
-    pattern = r"[a-zA-Z]+" if should_preprocess else r"[a-zA-Z]+|[^\s\w]"
+    # if preprocessing, ignore all non-letter
+    # TODO: change the preprocessing it just dont work
+    pattern = r"\b\w+(?:-\w+)*\b" if should_preprocess else r"\w+(?:-\w+)*|[^\w\s]"
     with open(eval_data_path, "r", encoding="utf-8") as fd:
         for sentence in fd:
             sentence = sentence[:-1]  # remove \n

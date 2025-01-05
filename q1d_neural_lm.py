@@ -101,9 +101,12 @@ def load_data_and_format(eval_data_path, word_to_num, should_preprocess):
     # if preprocessing, ignore all non-letter
     # TODO: change the preprocessing it just dont work
     pattern = r"\b\w+(?:-\w+)*\b" if should_preprocess else r"\w+(?:-\w+)*|[^\w\s]"
-    with open(eval_data_path, "r", encoding="utf-8") as fd:
+    with open(eval_data_path, "r", encoding="utf-8") as fd: 
         for sentence in fd:
             sentence = sentence[:-1]  # remove \n
+            tokens = re.findall(pattern, sentence)
+            if should_preprocess:
+                tokens = list(filter(lambda x: x not in ["in", "and", "is"], tokens)) # todo: add more
             doc = [[token] for token in re.findall(pattern, sentence)]
             docs.append(doc)
 
